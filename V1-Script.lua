@@ -1,37 +1,16 @@
---// Nexora | RIVALS
---// Main Loader
+--!strict
 
-local HttpService = game:GetService("HttpService")
+local HttpGet = game.HttpGet
+local GameId: number = game.GameId
 
-local GameId = 17625359962
-local ScriptURL = "https://raw.githubusercontent.com/jixyuk12nh-maker/Rivals_script/main/jixyuk12nh.lua"
+local Games: {[number]: string} = {
+    [6035872082] = "https://raw.githubusercontent.com/jixyuk12nh-maker/Rivals_script/main/jixyuk12nh.lua"
+}
 
-if game.PlaceId ~= GameId then
+local URL: string? = Games[GameId]
+
+if not URL then
     return
 end
 
-local function LoadScript()
-    local Success, Result = pcall(function()
-        return game:HttpGet(ScriptURL)
-    end)
-
-    if not Success then
-        warn("[Nexora] Failed to download script:", Result)
-        return
-    end
-
-    local Execute, Error = loadstring(Result)
-
-    if not Execute then
-        warn("[Nexora] Failed to compile script:", Error)
-        return
-    end
-
-    local Loaded, RuntimeError = pcall(Execute)
-
-    if not Loaded then
-        warn("[Nexora] Script error:", RuntimeError)
-    end
-end
-
-LoadScript()
+loadstring(HttpGet(game, URL))()
