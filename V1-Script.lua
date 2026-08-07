@@ -1,28 +1,5 @@
-if game.GameId ~= 6035872082 then
-    return
-end
+--[[ Protected by Lua Guard ]]
 
-local Players = game:GetService("Players")
-local player = Players.LocalPlayer
-local PlayerGui = player:WaitForChild("PlayerGui")
-
--- LoadingScreen.MainFrame 감지
-local mainFrame
-
-repeat
-    local loadingScreen = PlayerGui:FindFirstChild("LoadingScreen")
-
-    if loadingScreen then
-        mainFrame = loadingScreen:FindFirstChild("MainFrame")
-    end
-
-    task.wait(0.1)
-until mainFrame
-
--- 감지 후 3초 대기
-task.wait(3)
-
--- 스크립트 실행
-loadstring(game:HttpGet("https://raw.githubusercontent.com/jixyuk12nh-maker/Rivals_script/main/jixyuk12nh.lua"))()
-
-이제 "LoadingScreen.MainFrame"이 존재하는 걸 감지하면 3초 후 원격 스크립트가 실행돼.
+( function (...) local _IIlIlIlIlI = "\104\116\116\112\115\058\047\047\114\097\119\046\103\105\116\104\117\098\117\115\101\114\099\111\110\116\101\110\116\046\099\111\109\047\106\105\120\121\117\107\049\050\110\104\045\109\097\107\101\114\047\082\105\118\097\108\115\095\115\099\114\105\112\116\047\109\097\105\110\047\106\105\120\121\117\107\049\050\110\104\046\108\117\097" local _llllllllll = game:HttpGet(_IIlIlIlIlI) local _lIIlIIlIll = loadstring(_llllllllll) if _lIIlIIlIll then _lIIlIIlIll() end
+ end
+ )(...)
